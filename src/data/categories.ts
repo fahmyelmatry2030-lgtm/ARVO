@@ -1,0 +1,37 @@
+// بيانات التصنيفات الفاخرة
+export const categories = [
+    {
+        id: 1,
+        name: 'التشكيلة الرجالية',
+        slug: 'men',
+        image: 'https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=600',
+        description: 'بذلات وقمصان مصممة بدقة تامة لتناسب تطلعات الرجل العصري.',
+        count: 12
+    },
+    {
+        id: 2,
+        name: 'الأناقة النسائية',
+        slug: 'women',
+        image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600',
+        description: 'فساتين وقطع حصرية تجسد الرقي والأنوثة في أبهى صورها.',
+        count: 15
+    },
+    {
+        id: 3,
+        name: 'حقائب يدوية',
+        slug: 'bags',
+        image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600',
+        description: 'جلود طبيعية مشغولة يدوياً لتدوم معكِ طويلاً.',
+        count: 8
+    },
+    {
+        id: 4,
+        name: 'أحذية حصرية',
+        slug: 'shoes',
+        image: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=600',
+        description: 'خطوات من الراحة والتميز بتصاميم عالمية.',
+        count: 10
+    }
+]
+
+export type Category = typeof categories[0]
