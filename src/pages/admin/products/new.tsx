@@ -3,12 +3,15 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 import { FiSave, FiArrowRight, FiUpload } from 'react-icons/fi'
-import AdminLayout from '../../../components/admin/AdminLayout'
+import AdminLayout, { useAdminTheme } from '../../../components/admin/AdminLayout'
 import { useAdmin } from '../../../hooks/useAdmin'
+import { useRef } from 'react'
 
 export default function NewProduct() {
     const { requireAdmin, loading, admin } = useAdmin()
+    const { theme } = useAdminTheme()
     const router = useRouter()
+    const fileInputRef = useRef<HTMLInputElement>(null)
     const [saving, setSaving] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
@@ -52,6 +55,17 @@ export default function NewProduct() {
         })
     }
 
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (file) {
+            const reader = new FileReader()
+            reader.onloadend = () => {
+                setFormData(prev => ({ ...prev, image: reader.result as string }))
+            }
+            reader.readAsDataURL(file)
+        }
+    }
+
     return (
         <AdminLayout>
             <Head>
@@ -63,12 +77,12 @@ export default function NewProduct() {
                 <div className="mb-6">
                     <button
                         onClick={() => router.back()}
-                        className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+                        className={`inline-flex items-center gap-2 ${theme === 'dark' ? 'text-white/40 hover:text-white' : 'text-gray-500 hover:text-gray-900'} mb-4 transition-colors`}
                     >
                         {React.createElement(FiArrowRight as any, { className: "w-5 h-5" })}
                         <span>رجوع</span>
                     </button>
-                    <h1 className="text-3xl font-bold text-gray-900">إضافة منتج جديد</h1>
+                    <h1 className={`text-3xl font-black ${theme === 'dark' ? 'text-white' : 'text-gray-900'} uppercase italic tracking-tighter`}>إضافة منتج جديد</h1>
                 </div>
 
                 {/* Form */}
@@ -76,11 +90,11 @@ export default function NewProduct() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     onSubmit={handleSubmit}
-                    className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 space-y-6"
+                    className={`${theme === 'dark' ? 'bg-white/[0.02] border-white/5' : 'bg-white border-gray-100 shadow-sm'} rounded-[2.5rem] border p-10 space-y-8`}
                 >
                     {/* Product Name */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className={`block text-[10px] font-black ${theme === 'dark' ? 'text-white/40' : 'text-gray-400'} uppercase tracking-[0.2em] mb-3`}>
                             اسم المنتج *
                         </label>
                         <input
@@ -89,14 +103,14 @@ export default function NewProduct() {
                             required
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                            className={`w-full px-6 py-4 ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'} rounded-2xl focus:outline-none focus:border-amber-500/50 transition-all font-bold placeholder:${theme === 'dark' ? 'text-white/10' : 'text-gray-300'}`}
                             placeholder="مثال: قميص قطن رجالي"
                         />
                     </div>
 
                     {/* Description */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className={`block text-[10px] font-black ${theme === 'dark' ? 'text-white/40' : 'text-gray-400'} uppercase tracking-[0.2em] mb-3`}>
                             الوصف
                         </label>
                         <textarea
@@ -104,15 +118,15 @@ export default function NewProduct() {
                             value={formData.description}
                             onChange={handleChange}
                             rows={4}
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+                            className={`w-full px-6 py-4 ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'} rounded-2xl focus:outline-none focus:border-amber-500/50 transition-all font-bold placeholder:${theme === 'dark' ? 'text-white/10' : 'text-gray-300'} resize-none`}
                             placeholder="وصف تفصيلي للمنتج..."
                         />
                     </div>
 
                     {/* Price and Stock */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className={`block text-[10px] font-black ${theme === 'dark' ? 'text-white/40' : 'text-gray-400'} uppercase tracking-[0.2em] mb-3`}>
                                 السعر (ريال) *
                             </label>
                             <input
@@ -123,13 +137,13 @@ export default function NewProduct() {
                                 step="0.01"
                                 value={formData.price}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                className={`w-full px-6 py-4 ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'} rounded-2xl focus:outline-none focus:border-amber-500/50 transition-all font-bold placeholder:${theme === 'dark' ? 'text-white/10' : 'text-gray-300'}`}
                                 placeholder="0.00"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className={`block text-[10px] font-black ${theme === 'dark' ? 'text-white/40' : 'text-gray-400'} uppercase tracking-[0.2em] mb-3`}>
                                 الكمية المتوفرة *
                             </label>
                             <input
@@ -139,7 +153,7 @@ export default function NewProduct() {
                                 min="0"
                                 value={formData.stock}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                className={`w-full px-6 py-4 ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'} rounded-2xl focus:outline-none focus:border-amber-500/50 transition-all font-bold placeholder:${theme === 'dark' ? 'text-white/10' : 'text-gray-300'}`}
                                 placeholder="0"
                             />
                         </div>
@@ -147,7 +161,7 @@ export default function NewProduct() {
 
                     {/* Category */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className={`block text-[10px] font-black ${theme === 'dark' ? 'text-white/40' : 'text-gray-400'} uppercase tracking-[0.2em] mb-3`}>
                             الفئة *
                         </label>
                         <select
@@ -155,7 +169,7 @@ export default function NewProduct() {
                             required
                             value={formData.category}
                             onChange={handleChange}
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                            className={`w-full px-6 py-4 ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'} rounded-2xl focus:outline-none focus:border-amber-500/50 transition-all font-bold appearance-none cursor-pointer`}
                         >
                             <option value="">اختر الفئة</option>
                             <option value="men">ملابس رجالية</option>
@@ -165,65 +179,89 @@ export default function NewProduct() {
                         </select>
                     </div>
 
-                    {/* Image URL */}
+                    {/* Image URL & Local Upload */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            رابط الصورة
+                        <label className={`block text-[10px] font-black ${theme === 'dark' ? 'text-white/40' : 'text-gray-400'} uppercase tracking-[0.2em] mb-3`}>
+                            صورة المنتج
                         </label>
-                        <div className="flex gap-2">
+                        <div className="flex flex-col sm:flex-row gap-4">
                             <input
                                 type="url"
                                 name="image"
-                                value={formData.image}
+                                value={formData.image.startsWith('data:') ? 'صورة مرفوعة محلياً' : formData.image}
                                 onChange={handleChange}
-                                className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                                placeholder="https://example.com/image.jpg"
+                                disabled={formData.image.startsWith('data:')}
+                                className={`flex-1 px-6 py-4 ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'} rounded-2xl focus:outline-none focus:border-amber-500/50 transition-all font-bold placeholder:${theme === 'dark' ? 'text-white/10' : 'text-gray-300'}`}
+                                placeholder="رابط الصورة (URL)"
                             />
-                            <button
-                                type="button"
-                                className="px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                                title="رفع صورة"
-                            >
-                                {React.createElement(FiUpload as any, { className: "w-5 h-5 text-gray-600" })}
-                            </button>
+                            <div className="flex gap-2">
+                                <input
+                                    type="file"
+                                    ref={fileInputRef}
+                                    onChange={handleImageUpload}
+                                    accept="image/*"
+                                    className="hidden"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => fileInputRef.current?.click()}
+                                    className={`px-6 py-4 ${theme === 'dark' ? 'bg-amber-500/10 text-amber-500 hover:bg-amber-500 hover:text-white' : 'bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white'} rounded-2xl transition-all font-black text-[10px] uppercase tracking-widest flex items-center gap-3`}
+                                >
+                                    {React.createElement(FiUpload as any, { className: "w-4 h-4" })}
+                                    رفع صورة
+                                </button>
+                                {formData.image.startsWith('data:') && (
+                                    <button
+                                        type="button"
+                                        onClick={() => setFormData(prev => ({ ...prev, image: '' }))}
+                                        className="px-6 py-4 bg-red-500/10 text-red-500 rounded-2xl hover:bg-red-500 hover:text-white transition-all font-black text-[10px] uppercase tracking-widest"
+                                    >
+                                        حذف
+                                    </button>
+                                )}
+                            </div>
                         </div>
                         {formData.image && (
-                            <div className="mt-3">
-                                <img
-                                    src={formData.image}
-                                    alt="معاينة"
-                                    className="w-32 h-32 object-cover rounded-lg border border-gray-200"
-                                    onError={(e) => {
-                                        (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150?text=Invalid+Image'
-                                    }}
-                                />
+                            <div className="mt-6 flex justify-center sm:justify-start">
+                                <div className={`relative p-2 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-gray-50 border-gray-200'} border rounded-[2rem] overflow-hidden group`}>
+                                    <img
+                                        src={formData.image}
+                                        alt="معاينة"
+                                        className="w-40 h-40 object-cover rounded-[1.5rem]"
+                                        onError={(e) => {
+                                            (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150?text=Invalid+Image'
+                                        }}
+                                    />
+                                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                        <span className="text-[10px] text-white font-black uppercase tracking-widest">Preview</span>
+                                    </div>
+                                </div>
                             </div>
                         )}
                     </div>
 
                     {/* Actions */}
-                    <div className="flex gap-3 pt-4 border-t border-gray-200">
+                    <div className={`flex flex-col sm:flex-row gap-4 pt-10 border-t ${theme === 'dark' ? 'border-white/5' : 'border-gray-100'}`}>
                         <button
                             type="submit"
                             disabled={saving}
-                            className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-lg hover:shadow-lg transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
+                            className={`flex-1 relative group h-16 ${theme === 'dark' ? 'bg-white text-black' : 'bg-gray-900 text-white'} rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50`}
                         >
-                            {saving ? (
-                                <>
-                                    <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                                    جاري الحفظ...
-                                </>
-                            ) : (
-                                <>
-                                    {React.createElement(FiSave as any, { className: "w-5 h-5" })}
-                                    حفظ المنتج
-                                </>
-                            )}
+                            <span className="relative z-10 flex items-center justify-center gap-3">
+                                {saving ? (
+                                    <span className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                                ) : (
+                                    <>
+                                        {React.createElement(FiSave as any, { className: "w-4 h-4" })}
+                                        حفظ المنتج
+                                    </>
+                                )}
+                            </span>
                         </button>
                         <button
                             type="button"
                             onClick={() => router.back()}
-                            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                            className={`flex-1 h-16 ${theme === 'dark' ? 'bg-white/5 text-white hover:bg-white/10' : 'bg-gray-100 text-gray-900 hover:bg-gray-200'} rounded-2xl font-black uppercase tracking-widest text-xs transition-all`}
                         >
                             إلغاء
                         </button>

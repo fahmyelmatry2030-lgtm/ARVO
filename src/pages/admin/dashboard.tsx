@@ -24,7 +24,7 @@ export default function AdminDashboard() {
 
     if (loading || !admin) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-black">
+            <div className={`min-h-screen flex items-center justify-center ${theme === 'dark' ? 'bg-black' : 'bg-gray-50'}`}>
                 <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
             </div>
         )
@@ -77,7 +77,7 @@ export default function AdminDashboard() {
                 {/* Header Section */}
                 <div className="relative">
                     <span className="text-[10px] font-black text-amber-500 tracking-[0.6em] uppercase mb-4 block">OVERVIEW</span>
-                    <h1 className="text-4xl md:text-6xl font-black text-inherit leading-none tracking-tighter uppercase italic">
+                    <h1 className={`text-4xl md:text-6xl font-black ${theme === 'dark' ? 'text-white' : 'text-gray-900'} leading-none tracking-tighter uppercase italic`}>
                         مرحباً، <span className="text-amber-500">{admin.name}</span>
                     </h1>
                 </div>
@@ -96,9 +96,9 @@ export default function AdminDashboard() {
                                 <div className={`w-12 h-12 rounded-2xl ${theme === 'dark' ? 'bg-white/5' : 'bg-amber-50'} flex items-center justify-center text-amber-500 mb-6 group-hover:bg-amber-500 group-hover:text-black transition-all`}>
                                     {React.createElement(stat.icon as any, { className: "w-6 h-6" })}
                                 </div>
-                                <p className="text-[10px] font-black opacity-40 uppercase tracking-[0.2em] mb-2">{stat.label}</p>
+                                <p className={`text-[10px] font-black ${theme === 'dark' ? 'text-white/40' : 'text-gray-400'} uppercase tracking-[0.2em] mb-2`}>{stat.label}</p>
                                 <div className="flex items-baseline gap-3">
-                                    <h3 className="text-3xl font-black tracking-tighter italic">{stat.value}</h3>
+                                    <h3 className={`text-3xl font-black ${theme === 'dark' ? 'text-white' : 'text-gray-900'} tracking-tighter italic`}>{stat.value}</h3>
                                     <span className="text-[10px] font-black text-green-500">{stat.change}</span>
                                 </div>
                             </div>
@@ -138,19 +138,19 @@ export default function AdminDashboard() {
 
                         {/* Recent Orders Table */}
                         <div className={`${theme === 'dark' ? 'bg-white/5 border-white/5' : 'bg-white border-gray-100 shadow-sm'} border rounded-[3rem] overflow-hidden`}>
-                            <div className={`p-8 border-b ${theme === 'dark' ? 'border-white/5' : 'border-gray-50'} flex items-center justify-between`}>
-                                <h2 className="text-xl font-black uppercase tracking-tight italic">آخر الطلبات</h2>
-                                <button className="text-[10px] font-black text-amber-500 uppercase tracking-widest hover:text-inherit transition-colors">عرض الكل</button>
+                            <div className={`p-8 border-b ${theme === 'dark' ? 'border-white/5' : 'border-gray-100'} flex items-center justify-between`}>
+                                <h2 className={`text-xl font-black ${theme === 'dark' ? 'text-white' : 'text-gray-900'} uppercase tracking-tight italic`}>آخر الطلبات</h2>
+                                <button className="text-[10px] font-black text-amber-500 uppercase tracking-widest hover:text-amber-600 transition-colors">عرض الكل</button>
                             </div>
                             <div className="overflow-x-auto">
                                 <table className="w-full text-right text-inherit">
                                     <thead className={theme === 'dark' ? 'bg-white/5' : 'bg-gray-50'}>
                                         <tr>
-                                            <th className="px-8 py-5 text-xs font-black opacity-40 uppercase">رقم الطلب</th>
-                                            <th className="px-8 py-5 text-xs font-black opacity-40 uppercase">العميل</th>
-                                            <th className="px-8 py-5 text-xs font-black opacity-40 uppercase">المبلغ</th>
-                                            <th className="px-8 py-5 text-xs font-black opacity-40 uppercase">الحالة</th>
-                                            <th className="px-8 py-5 text-xs font-black opacity-40 uppercase">الوقت</th>
+                                            <th className={`px-8 py-5 text-xs font-black ${theme === 'dark' ? 'text-white/40' : 'text-gray-400'} uppercase`}>رقم الطلب</th>
+                                            <th className={`px-8 py-5 text-xs font-black ${theme === 'dark' ? 'text-white/40' : 'text-gray-400'} uppercase`}>العميل</th>
+                                            <th className={`px-8 py-5 text-xs font-black ${theme === 'dark' ? 'text-white/40' : 'text-gray-400'} uppercase`}>المبلغ</th>
+                                            <th className={`px-8 py-5 text-xs font-black ${theme === 'dark' ? 'text-white/40' : 'text-gray-400'} uppercase`}>الحالة</th>
+                                            <th className={`px-8 py-5 text-xs font-black ${theme === 'dark' ? 'text-white/40' : 'text-gray-400'} uppercase`}>الوقت</th>
                                         </tr>
                                     </thead>
                                     <tbody className={`divide-y ${theme === 'dark' ? 'divide-white/5' : 'divide-gray-50'}`}>
@@ -160,10 +160,10 @@ export default function AdminDashboard() {
                                                     <span className="font-mono text-sm text-amber-500">#{order.id}</span>
                                                 </td>
                                                 <td className="px-8 py-6">
-                                                    <span className="text-sm font-bold group-hover:text-amber-500 transition-colors uppercase">{order.customer}</span>
+                                                    <span className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} group-hover:text-amber-500 transition-colors uppercase`}>{order.customer}</span>
                                                 </td>
                                                 <td className="px-8 py-6">
-                                                    <span className="text-sm font-black">{order.total} ج.م</span>
+                                                    <span className={`text-sm font-black ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{order.total} ج.م</span>
                                                 </td>
                                                 <td className="px-8 py-6">
                                                     <span className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest ${order.status === 'completed'
@@ -174,7 +174,7 @@ export default function AdminDashboard() {
                                                         {order.status === 'completed' ? 'مكتمل' : 'قيد المعالجة'}
                                                     </span>
                                                 </td>
-                                                <td className="px-8 py-6 text-[10px] opacity-20 font-extrabold">
+                                                <td className={`px-8 py-6 text-[10px] ${theme === 'dark' ? 'text-white/20' : 'text-gray-400'} font-extrabold`}>
                                                     {order.time}
                                                 </td>
                                             </tr>
@@ -202,8 +202,8 @@ export default function AdminDashboard() {
                                     <div key={i} className="flex gap-4">
                                         <div className="w-1 h-10 border-r-2 border-amber-500/30" />
                                         <div>
-                                            <p className="text-[10px] font-black uppercase">إضافة منتج جديد</p>
-                                            <p className="text-[9px] opacity-40">بواسطة {admin.name} • 10:30 AM</p>
+                                            <p className={`text-[10px] font-black ${theme === 'dark' ? 'text-white' : 'text-gray-900'} uppercase`}>إضافة منتج جديد</p>
+                                            <p className={`text-[9px] ${theme === 'dark' ? 'text-white/40' : 'text-gray-400'}`}>بواسطة {admin.name} • 10:30 AM</p>
                                         </div>
                                     </div>
                                 ))}

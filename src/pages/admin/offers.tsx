@@ -18,7 +18,7 @@ export default function AdminOffers() {
 
     if (loading || !admin) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-black">
+            <div className={`min-h-screen flex items-center justify-center ${theme === 'dark' ? 'bg-black' : 'bg-gray-50'}`}>
                 <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
             </div>
         )

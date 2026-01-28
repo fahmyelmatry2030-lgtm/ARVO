@@ -3,13 +3,14 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { FiPlus, FiEdit2, FiTrash2, FiSearch } from 'react-icons/fi'
-import AdminLayout from '../../../components/admin/AdminLayout'
+import AdminLayout, { useAdminTheme } from '../../../components/admin/AdminLayout'
 import { useAdmin } from '../../../hooks/useAdmin'
 import SafeImage from '../../../components/SafeImage'
 import productsData from '../../../data/products'
 
 export default function AdminProducts() {
     const { requireAdmin, loading, admin } = useAdmin()
+    const { theme } = useAdminTheme()
     const [products, setProducts] = useState(productsData)
     const [searchQuery, setSearchQuery] = useState('')
 
@@ -19,7 +20,7 @@ export default function AdminProducts() {
 
     if (loading || !admin) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-black">
+            <div className={`min-h-screen flex items-center justify-center ${theme === 'dark' ? 'bg-black' : 'bg-gray-50'}`}>
                 <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
             </div>
         )
@@ -44,14 +45,14 @@ export default function AdminProducts() {
 
             <div className="space-y-12">
                 {/* Header */}
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-8 border-b border-white/5 pb-12">
+                <div className={`flex flex-col sm:flex-row justify-between items-start sm:items-center gap-8 border-b ${theme === 'dark' ? 'border-white/5' : 'border-gray-100'} pb-12`}>
                     <div>
                         <span className="text-[10px] font-black text-amber-500 tracking-[0.6em] uppercase mb-4 block">INVENTORY</span>
-                        <h1 className="text-4xl md:text-6xl font-black text-white leading-none tracking-tighter uppercase italic">إدارة المنتجات</h1>
+                        <h1 className={`text-4xl md:text-6xl font-black ${theme === 'dark' ? 'text-white' : 'text-gray-900'} leading-none tracking-tighter uppercase italic`}>إدارة المنتجات</h1>
                     </div>
                     <Link
                         href="/admin/products/new"
-                        className="group relative px-10 py-5 bg-white text-black font-black uppercase tracking-widest text-[10px] transition-all hover:scale-105 active:scale-95"
+                        className={`group relative px-10 py-5 ${theme === 'dark' ? 'bg-white text-black' : 'bg-gray-900 text-white'} font-black uppercase tracking-widest text-[10px] transition-all hover:scale-105 active:scale-95`}
                     >
                         <span className="relative z-10 flex items-center gap-3">
                             {React.createElement(FiPlus as any, { className: "w-4 h-4" })}
@@ -71,7 +72,7 @@ export default function AdminProducts() {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="البحث في المستودع..."
-                        className="w-full bg-white/[0.03] border border-white/5 text-white pr-16 pl-8 py-6 rounded-3xl focus:outline-none focus:border-amber-500/50 transition-all font-bold placeholder:text-white/20"
+                        className={`w-full ${theme === 'dark' ? 'bg-white/[0.03] border-white/5 text-white' : 'bg-white border-gray-100 shadow-sm text-gray-900'} pr-16 pl-8 py-6 rounded-3xl focus:outline-none focus:border-amber-500/50 transition-all font-bold placeholder:${theme === 'dark' ? 'text-white/20' : 'text-gray-300'}`}
                     />
                 </div>
 
@@ -83,7 +84,7 @@ export default function AdminProducts() {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: index * 0.05 }}
-                            className="group relative bg-white/[0.02] border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-amber-500/30 transition-all duration-700"
+                            className={`group relative ${theme === 'dark' ? 'bg-white/[0.02] border-white/5' : 'bg-white border-gray-100 shadow-sm'} rounded-[2.5rem] overflow-hidden hover:border-amber-500/30 transition-all duration-700`}
                         >
                             {/* Product Image */}
                             <div className="relative aspect-[4/5] bg-neutral-900 overflow-hidden">
@@ -127,12 +128,12 @@ export default function AdminProducts() {
                                     </span>
                                 </div>
 
-                                <h3 className="text-xl font-black text-white italic tracking-tighter mb-4 line-clamp-1 group-hover:text-amber-500 transition-colors">
+                                <h3 className={`text-xl font-black ${theme === 'dark' ? 'text-white' : 'text-gray-900'} italic tracking-tighter mb-4 line-clamp-1 group-hover:text-amber-500 transition-colors`}>
                                     {product.name}
                                 </h3>
 
-                                <div className="text-2xl font-black text-white tracking-tighter">
-                                    {product.price} <span className="text-xs text-white/40">ج.م</span>
+                                <div className={`text-2xl font-black ${theme === 'dark' ? 'text-white' : 'text-gray-900'} tracking-tighter`}>
+                                    {product.price} <span className={`text-xs ${theme === 'dark' ? 'text-white/40' : 'text-gray-400'}`}>ج.م</span>
                                 </div>
                             </div>
                         </motion.div>
@@ -141,8 +142,8 @@ export default function AdminProducts() {
 
                 {/* Empty State */}
                 {filteredProducts.length === 0 && (
-                    <div className="text-center py-40 bg-white/[0.02] border border-white/5 rounded-[3rem]">
-                        <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.8em]">No results found</span>
+                    <div className={`text-center py-40 ${theme === 'dark' ? 'bg-white/[0.02] border-white/5' : 'bg-white border-gray-100 shadow-sm'} rounded-[3rem]`}>
+                        <span className={`text-[10px] font-black ${theme === 'dark' ? 'text-white/20' : 'text-gray-300'} uppercase tracking-[0.8em]`}>No results found</span>
                     </div>
                 )}
             </div>
