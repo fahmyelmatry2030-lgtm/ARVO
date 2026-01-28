@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { motion } from 'framer-motion'
-import { FiUsers, FiClock, FiGlobe, FiMonitor, FiActivity } from 'react-icons/fi'
-import AdminLayout from '../../components/admin/AdminLayout'
+import { FiUsers, FiClock, FiMapPin, FiMonitor, FiActivity } from 'react-icons/fi'
+import AdminLayout, { useAdminTheme } from '../../components/admin/AdminLayout'
 import { useAdmin } from '../../hooks/useAdmin'
 
 export default function AdminAnalytics() {
     const { admin, requireAdmin, loading } = useAdmin()
+    const { theme } = useAdminTheme()
 
     useEffect(() => {
         requireAdmin()
@@ -29,6 +30,12 @@ export default function AdminAnalytics() {
         { id: 5, user: 'أحمد محمود', email: 'ahmed@example.com', time: '2025-01-27 20:05', status: 'نجاح', device: 'Windows / Chrome', location: 'القاهرة، مصر' },
     ]
 
+    const stats = [
+        { icon: FiUsers, label: 'نشطون الآن', value: '12' },
+        { icon: FiActivity, label: 'عمليات الدخول اليوم', value: '148' },
+        { icon: FiClock, label: 'متوسط وقت الجلسة', value: '8.4 د' },
+    ]
+
     return (
         <AdminLayout>
             <Head>
@@ -46,58 +53,46 @@ export default function AdminAnalytics() {
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="bg-white/5 border border-white/5 rounded-[2rem] p-8">
-                        <div className="flex items-center gap-4 mb-4">
-                            <div className="w-10 h-10 bg-amber-500/10 rounded-xl flex items-center justify-center text-amber-500">
-                                {React.createElement(FiUsers as any, { className: "w-5 h-5" })}
+                    {stats.map((stat, index: number) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            className={`${theme === 'dark' ? 'bg-white/5 border-white/5' : 'bg-white border-gray-100 shadow-sm'} border p-8 rounded-[2.5rem] group hover:border-amber-500/30 transition-all`}
+                        >
+                            <div className={`w-12 h-12 rounded-2xl ${theme === 'dark' ? 'bg-white/5' : 'bg-amber-50'} flex items-center justify-center text-amber-500 mb-6 group-hover:bg-amber-500 group-hover:text-white transition-all`}>
+                                {React.createElement(stat.icon as any, { className: "w-5 h-5" })}
                             </div>
-                            <span className="text-[10px] font-black uppercase tracking-widest text-inherit/40">نشطون الآن</span>
-                        </div>
-                        <h3 className="text-3xl font-black tracking-tighter">12 <span className="text-sm font-bold text-green-500">+2</span></h3>
-                    </div>
-                    <div className="bg-white/5 border border-white/5 rounded-[2rem] p-8">
-                        <div className="flex items-center gap-4 mb-4">
-                            <div className="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-500">
-                                {React.createElement(FiActivity as any, { className: "w-5 h-5" })}
-                            </div>
-                            <span className="text-[10px] font-black uppercase tracking-widest text-inherit/40">عمليات الدخول اليوم</span>
-                        </div>
-                        <h3 className="text-3xl font-black tracking-tighter">148</h3>
-                    </div>
-                    <div className="bg-white/5 border border-white/5 rounded-[2rem] p-8">
-                        <div className="flex items-center gap-4 mb-4">
-                            <div className="w-10 h-10 bg-red-500/10 rounded-xl flex items-center justify-center text-red-500">
-                                {React.createElement(FiClock as any, { className: "w-5 h-5" })}
-                            </div>
-                            <span className="text-[10px] font-black uppercase tracking-widest text-inherit/40">متوسط وقت الجلسة</span>
-                        </div>
-                        <h3 className="text-3xl font-black tracking-tighter">8.4 <span className="text-sm font-bold opacity-60">دقائق</span></h3>
-                    </div>
+                            <p className="text-[10px] font-black opacity-40 uppercase tracking-[0.2em] mb-2">{stat.label}</p>
+                            <h3 className="text-3xl font-black italic">{stat.value}</h3>
+                        </motion.div>
+                    ))}
                 </div>
 
                 {/* Table Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-white/5 border border-white/5 rounded-[3rem] overflow-hidden"
+                    className={`${theme === 'dark' ? 'bg-white/5 border-white/5' : 'bg-white border-gray-100 shadow-sm'} border rounded-[3rem] overflow-hidden`}
                 >
-                    <div className="p-8 border-b border-white/5 flex items-center justify-between">
-                        <h2 className="text-xl font-black uppercase tracking-tight italic">تفاصيل الدخول الأخيرة</h2>
+                    <div className={`p-10 border-b ${theme === 'dark' ? 'border-white/5' : 'border-gray-50'}`}>
+                        <h2 className="text-2xl font-black uppercase tracking-tight italic">سجلات الدخول الحديثة</h2>
                     </div>
                     <div className="overflow-x-auto">
-                        <table className="w-full text-right">
-                            <thead className="bg-white/5">
+                        <table className="w-full text-right text-inherit">
+                            <thead className={theme === 'dark' ? 'bg-white/5' : 'bg-gray-50'}>
                                 <tr>
-                                    <th className="px-8 py-5 text-xs font-black opacity-40 uppercase">المستخدم</th>
-                                    <th className="px-8 py-5 text-xs font-black opacity-40 uppercase">الوقت</th>
-                                    <th className="px-8 py-5 text-xs font-black opacity-40 uppercase">الجهاز</th>
-                                    <th className="px-8 py-5 text-xs font-black opacity-40 uppercase">الموقع</th>
-                                    <th className="px-8 py-5 text-xs font-black opacity-40 uppercase">الحالة</th>
+                                    <th className="px-8 py-6 text-[10px] font-black opacity-40 uppercase tracking-widest">المستخدم</th>
+                                    <th className="px-8 py-6 text-[10px] font-black opacity-40 uppercase tracking-widest">الوقت</th>
+                                    <th className="px-8 py-6 text-[10px] font-black opacity-40 uppercase tracking-widest">الموقع</th>
+                                    <th className="px-8 py-6 text-[10px] font-black opacity-40 uppercase tracking-widest">الجهاز</th>
+                                    <th className="px-8 py-6 text-[10px] font-black opacity-40 uppercase tracking-widest">الحالة</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-white/5">
+                            <tbody className={`divide-y ${theme === 'dark' ? 'divide-white/5' : 'divide-gray-50'}`}>
                                 {loginHistory.map((log) => (
-                                    <tr key={log.id} className="hover:bg-white/5 transition-colors group">
+                                    <tr key={log.id} className={`${theme === 'dark' ? 'hover:bg-white/5' : 'hover:bg-gray-50'} transition-colors group`}>
                                         <td className="px-8 py-6">
                                             <div className="flex flex-col">
                                                 <span className="text-sm font-black group-hover:text-amber-500 transition-colors uppercase">{log.user}</span>
@@ -118,7 +113,7 @@ export default function AdminAnalytics() {
                                         </td>
                                         <td className="px-8 py-6">
                                             <span className="text-[10px] opacity-60 font-black flex items-center gap-2">
-                                                {React.createElement(FiGlobe as any, { className: "w-3 h-3" })}
+                                                {React.createElement(FiMapPin as any, { className: "w-3 h-3 text-amber-500" })}
                                                 {log.location}
                                             </span>
                                         </td>

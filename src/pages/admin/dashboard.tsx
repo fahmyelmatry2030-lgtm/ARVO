@@ -10,11 +10,12 @@ import {
     FiClock,
     FiCheckCircle
 } from 'react-icons/fi'
-import AdminLayout from '../../components/admin/AdminLayout'
+import AdminLayout, { useAdminTheme } from '../../components/admin/AdminLayout'
 import { useAdmin } from '../../hooks/useAdmin'
 
 export default function AdminDashboard() {
     const { admin, requireAdmin, loading } = useAdmin()
+    const { theme } = useAdminTheme()
     const router = useRouter()
 
     useEffect(() => {
@@ -89,10 +90,10 @@ export default function AdminDashboard() {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: index * 0.1 }}
-                            className="relative group overflow-hidden bg-white/5 backdrop-blur-md border border-white/5 p-8 rounded-[2.5rem] hover:border-amber-500/30 transition-all duration-500"
+                            className={`relative group overflow-hidden ${theme === 'dark' ? 'bg-white/5 border-white/5' : 'bg-white border-gray-100 shadow-sm'} backdrop-blur-md border p-8 rounded-[2.5rem] hover:border-amber-500/30 transition-all duration-500`}
                         >
                             <div className="relative z-10">
-                                <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-amber-500 mb-6 group-hover:bg-amber-500 group-hover:text-black transition-all">
+                                <div className={`w-12 h-12 rounded-2xl ${theme === 'dark' ? 'bg-white/5' : 'bg-amber-50'} flex items-center justify-center text-amber-500 mb-6 group-hover:bg-amber-500 group-hover:text-black transition-all`}>
                                     {React.createElement(stat.icon as any, { className: "w-6 h-6" })}
                                 </div>
                                 <p className="text-[10px] font-black opacity-40 uppercase tracking-[0.2em] mb-2">{stat.label}</p>
@@ -109,7 +110,7 @@ export default function AdminDashboard() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Visual Analytics Mock */}
                     <div className="lg:col-span-2 space-y-8">
-                        <div className="bg-white/5 border border-white/5 rounded-[3rem] p-10 relative overflow-hidden group">
+                        <div className={`${theme === 'dark' ? 'bg-white/5 border-white/5' : 'bg-white border-gray-100 shadow-sm'} border rounded-[3rem] p-10 relative overflow-hidden group`}>
                             <div className="flex justify-between items-center mb-10">
                                 <div>
                                     <h2 className="text-2xl font-black uppercase tracking-tight italic">إحصائيات المبيعات</h2>
@@ -121,7 +122,7 @@ export default function AdminDashboard() {
                             <div className="flex items-end justify-between h-64 gap-3">
                                 {[60, 40, 80, 50, 90, 70, 85].map((h, i) => (
                                     <div key={i} className="flex-1 flex flex-col items-center gap-4">
-                                        <div className="w-full bg-white/5 rounded-t-xl relative overflow-hidden group/bar" style={{ height: '100%' }}>
+                                        <div className={`w-full ${theme === 'dark' ? 'bg-white/5' : 'bg-gray-50'} rounded-t-xl relative overflow-hidden group/bar`} style={{ height: '100%' }}>
                                             <motion.div
                                                 initial={{ height: 0 }}
                                                 animate={{ height: `${h}%` }}
@@ -136,14 +137,14 @@ export default function AdminDashboard() {
                         </div>
 
                         {/* Recent Orders Table */}
-                        <div className="bg-white/5 border border-white/5 rounded-[3rem] overflow-hidden">
-                            <div className="p-8 border-b border-white/5 flex items-center justify-between">
+                        <div className={`${theme === 'dark' ? 'bg-white/5 border-white/5' : 'bg-white border-gray-100 shadow-sm'} border rounded-[3rem] overflow-hidden`}>
+                            <div className={`p-8 border-b ${theme === 'dark' ? 'border-white/5' : 'border-gray-50'} flex items-center justify-between`}>
                                 <h2 className="text-xl font-black uppercase tracking-tight italic">آخر الطلبات</h2>
                                 <button className="text-[10px] font-black text-amber-500 uppercase tracking-widest hover:text-inherit transition-colors">عرض الكل</button>
                             </div>
                             <div className="overflow-x-auto">
-                                <table className="w-full text-right">
-                                    <thead className="bg-white/5">
+                                <table className="w-full text-right text-inherit">
+                                    <thead className={theme === 'dark' ? 'bg-white/5' : 'bg-gray-50'}>
                                         <tr>
                                             <th className="px-8 py-5 text-xs font-black opacity-40 uppercase">رقم الطلب</th>
                                             <th className="px-8 py-5 text-xs font-black opacity-40 uppercase">العميل</th>
@@ -152,7 +153,7 @@ export default function AdminDashboard() {
                                             <th className="px-8 py-5 text-xs font-black opacity-40 uppercase">الوقت</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-white/5">
+                                    <tbody className={`divide-y ${theme === 'dark' ? 'divide-white/5' : 'divide-gray-50'}`}>
                                         {recentOrders.map((order) => (
                                             <tr key={order.id} className="hover:bg-white/5 transition-colors group">
                                                 <td className="px-8 py-6">
@@ -194,8 +195,8 @@ export default function AdminDashboard() {
                             <div className="w-20 h-1 bg-black/20" />
                         </div>
 
-                        <div className="bg-white/5 border border-white/5 rounded-[3rem] p-8">
-                            <h3 className="text-sm font-black uppercase tracking-widest mb-6 border-b border-white/5 pb-4">نشاط المستودع</h3>
+                        <div className={`${theme === 'dark' ? 'bg-white/5 border-white/5' : 'bg-white border-gray-100 shadow-sm'} border rounded-[3rem] p-8`}>
+                            <h3 className={`text-sm font-black uppercase tracking-widest mb-6 border-b ${theme === 'dark' ? 'border-white/5' : 'border-gray-50'} pb-4`}>نشاط المستودع</h3>
                             <div className="space-y-6">
                                 {[1, 2, 3].map(i => (
                                     <div key={i} className="flex gap-4">
@@ -211,7 +212,6 @@ export default function AdminDashboard() {
                     </div>
                 </div>
             </div>
-        </div>
-        </AdminLayout >
+        </AdminLayout>
     )
 }

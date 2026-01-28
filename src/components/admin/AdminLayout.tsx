@@ -15,7 +15,11 @@ import {
     FiMoon
 } from 'react-icons/fi'
 import { useAdmin } from '../../hooks/useAdmin'
-import { useState } from 'react'
+import { useState, useEffect, createContext, useContext } from 'react'
+
+// Create a simple context for children to access the theme
+const AdminThemeContext = createContext({ theme: 'dark', toggleTheme: () => { } })
+export const useAdminTheme = () => useContext(AdminThemeContext)
 
 interface AdminLayoutProps {
     children: ReactNode
@@ -34,10 +38,23 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     const router = useRouter()
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [theme, setTheme] = useState<'dark' | 'light'>('dark')
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('admin-theme') as 'dark' | 'light'
+        if (savedTheme) setTheme(savedTheme)
+        setMounted(true)
+    }, [])
+
+    useEffect(() => {
+        if (mounted) {
+            localStorage.setItem('admin-theme', theme)
+        }
+    }, [theme, mounted])
 
     const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark')
 
-    if (!admin) {
+    if (!admin || !mounted) {
         return null
     }
 
@@ -169,13 +186,15 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
                 {/* Dynamic Page Content */}
                 <main className="p-8 lg:p-12 max-w-[1600px] mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        {children}
-                    </motion.div>
+                    <AdminThemeContext.Provider value={{ theme, toggleTheme }}>
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            {children}
+                        </motion.div>
+                    </AdminThemeContext.Provider>
                 </main>
             </div>
         </div>
