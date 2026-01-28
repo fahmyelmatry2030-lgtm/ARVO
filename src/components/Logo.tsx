@@ -11,9 +11,6 @@ export default function Logo({ className = "w-10 h-10" }: { className?: string }
                     className="w-full h-full"
                     whileHover={{ scale: 1.05 }}
                 >
-                    {/* Background Decorative Ring */}
-                    <circle cx="50" cy="50" r="48" stroke="currentColor" strokeWidth="1" className="text-amber-500/20" />
-
                     {/* Luxury Monogram 'A' */}
                     <motion.path
                         initial={{ pathLength: 0, opacity: 0 }}
@@ -34,9 +31,6 @@ export default function Logo({ className = "w-10 h-10" }: { className?: string }
                         strokeWidth="2"
                         className="text-amber-500"
                     />
-
-                    {/* Decorative Detail */}
-                    <circle cx="50" cy="15" r="2" fill="currentColor" className="text-amber-400" />
                 </motion.svg>
             </div>
             <span className="text-2xl font-black tracking-tighter italic text-inherit">
