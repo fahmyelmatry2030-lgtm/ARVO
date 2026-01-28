@@ -10,7 +10,7 @@ export default function Categories() {
         <Layout>
             <SEO
                 title="التصنيفات"
-                description="تصفح جميع تصنيفات الملابس والإكسسوارات - ملابس رجالية، نسائية، أحذية، حقائب والمزيد من براند الملابس."
+                description="تصفح جميع تصنيفات الملابس والإكسسوارات - ملابس رجالية، نسائية، أحذية، حقائب والمزيد من AROVA."
             />
 
             <div className="max-w-7xl mx-auto px-4 py-12">

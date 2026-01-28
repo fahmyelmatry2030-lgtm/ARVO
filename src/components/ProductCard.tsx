@@ -111,9 +111,9 @@ export default function ProductCard({
 
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="text-2xl font-black text-gray-900 tracking-tighter">{product.price} <span className="text-xs">ريال</span></span>
+            <span className="text-2xl font-black text-gray-900 tracking-tighter">{product.price} <span className="text-xs">ج.م</span></span>
             {originalPrice && (
-              <span className="text-xs text-gray-400 line-through decoration-amber-600/30 font-bold">{originalPrice} ريال</span>
+              <span className="text-xs text-gray-400 line-through decoration-amber-600/30 font-bold">{originalPrice} ج.م</span>
             )}
           </div>
 

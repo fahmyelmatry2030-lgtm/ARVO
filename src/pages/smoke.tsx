@@ -27,7 +27,7 @@ export default function Smoke() {
         <section>
           <h2 className="text-lg font-semibold mb-3">الأزرار</h2>
           <div className="flex gap-4">
-            <button className="btn-brand">زر براند</button>
+            <button className="btn-brand">AROVA</button>
             <button className="btn-ghost">زر ثانوي</button>
           </div>
         </section>

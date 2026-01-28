@@ -78,7 +78,7 @@ export default function Orders() {
 
   return (
     <Layout>
-      <SEO title="طلباتي" description="عرض وتتبع جميع طلباتك السابقة من براند الملابس." />
+      <SEO title="طلباتي" description="عرض وتتبع جميع طلباتك السابقة من AROVA." />
 
       <div className="bg-gray-50 min-h-screen py-24">
         <div className="max-w-5xl mx-auto px-4">
@@ -134,7 +134,7 @@ export default function Orders() {
                           {order.status === 'pending' ? 'قيد المعالجة' : order.status}
                         </span>
                       </div>
-                      <p className="text-3xl font-black text-gray-900 tracking-tighter">{order.total} <span className="text-sm">ريال</span></p>
+                      <p className="text-3xl font-black text-gray-900 tracking-tighter">{order.total} <span className="text-sm">ج.م</span></p>
                     </div>
                   </div>
 

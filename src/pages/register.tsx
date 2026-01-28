@@ -68,7 +68,7 @@ export default function Register() {
 
     return (
         <Layout>
-            <SEO title="إنشاء حساب جديد" description="انضم إلى عائلة براند الملابس اليوم واستمتع بتجربة تسوق فريدة وخصومات خاصة للأعضاء." />
+            <SEO title="إنشاء حساب جديد" description="انضم إلى عائلة AROVA اليوم واستمتع بتجربة تسوق فريدة وخصومات خاصة للأعضاء." />
 
             <div className="min-h-screen flex items-center justify-center py-20 px-4 bg-gray-50 relative overflow-hidden">
                 {/* Decorative elements */}

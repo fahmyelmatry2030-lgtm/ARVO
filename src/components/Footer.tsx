@@ -66,7 +66,7 @@ export default function Footer() {
                 </div>
                 <div className="text-sm">
                   <p className="text-white font-bold">المقر الرئيسي</p>
-                  <p>الرياض، حي العليا، شارع التحلية</p>
+                  <p>القاهرة، مصر</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -75,7 +75,7 @@ export default function Footer() {
                 </div>
                 <div className="text-sm">
                   <p className="text-white font-bold">خدمة العملاء</p>
-                  <p dir="ltr" className="text-right">966 50 000 0000</p>
+                  <p dir="ltr" className="text-right">+20 100 000 0000</p>
                 </div>
               </div>
             </div>
@@ -85,7 +85,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">
-            © {currentYear} براند الملابس — جميع الحقوق محفوظة لمحترفي الأناقة.
+            © {currentYear} AROVA — جميع الحقوق محفوظة.
           </p>
           <div className="flex gap-6 items-center">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" alt="Mastercard" className="h-4 opacity-50 grayscale hover:grayscale-0 transition-all cursor-pointer" />

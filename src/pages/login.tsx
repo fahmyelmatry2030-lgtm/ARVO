@@ -30,7 +30,7 @@ export default function Login() {
         const mockUser = {
           id: 'mock-user-1',
           email: email,
-          name: 'عميل براند',
+          name: 'عميل AROVA',
           image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix'
         }
         localStorage.setItem('mockUser', JSON.stringify(mockUser))
@@ -50,7 +50,7 @@ export default function Login() {
 
   return (
     <Layout>
-      <SEO title="تسجيل الدخول" description="سجل دخولك إلى حسابك في براند الملابس للوصول إلى طلباتك وقائمة أمنياتك." />
+      <SEO title="تسجيل الدخول" description="سجل دخولك إلى حسابك في AROVA للوصول إلى طلباتك وقائمة أمنياتك." />
 
       <div className="min-h-screen flex items-center justify-center py-20 px-4 bg-gray-50 relative overflow-hidden">
         {/* Decorative elements */}

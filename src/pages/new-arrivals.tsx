@@ -14,8 +14,8 @@ export default function NewArrivals() {
     return (
         <Layout>
             <Head>
-                <title>المنتجات الجديدة | براند الملابس</title>
-                <meta name="description" content="اكتشف أحدث المنتجات والتشكيلات الجديدة من براند الملابس" />
+                <title>المنتجات الجديدة | AROVA</title>
+                <meta name="description" content="اكتشف أحدث المنتجات والتشكيلات الجديدة من AROVA" />
             </Head>
 
             {/* Hero Section */}

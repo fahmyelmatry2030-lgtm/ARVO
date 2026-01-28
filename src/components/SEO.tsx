@@ -10,9 +10,9 @@ interface SEOProps {
 
 const SEO = ({ title, description, image, article }: SEOProps) => {
     const { asPath } = useRouter();
-    const siteName = 'براند ملابس';
+    const siteName = 'AROVA';
     const defaultDescription = 'اكتشف أحدث صيحات الموضة والملابس العصرية في متجرنا. جودة عالية وتصاميم فريدة تناسب ذوقك.';
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourbrand.com';
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://arova.com';
     const defaultImage = `${siteUrl}/og-image.jpg`;
 
     const seo = {

@@ -70,7 +70,7 @@ export default function Checkout() {
 
   return (
     <Layout>
-      <SEO title="إتمام الشراء" description="أكمل طلبك الآن من براند الملابس. شحن سريع ودفع آمن." />
+      <SEO title="إتمام الشراء" description="أكمل طلبك الآن من AROVA. شحن سريع ودفع آمن." />
 
       <div className="bg-gray-50 min-h-screen py-16">
         <div className="container mx-auto px-4">
@@ -225,7 +225,7 @@ export default function Checkout() {
                         <p className="text-[10px] font-black text-amber-500 uppercase tracking-widest mt-1">
                           {item.selectedSize && `Size: ${item.selectedSize}`} {item.selectedColor && ` • Color: ${item.selectedColor}`}
                         </p>
-                        <p className="text-lg font-black mt-2">{item.price} ريال</p>
+                        <p className="text-lg font-black mt-2">{item.price} ج.م</p>
                       </div>
                     </div>
                   ))}
@@ -234,22 +234,22 @@ export default function Checkout() {
                 <div className="space-y-4 font-bold text-sm">
                   <div className="flex justify-between text-gray-400 uppercase tracking-widest text-[10px]">
                     <span>المجموع الفرعي</span>
-                    <span className="text-white text-sm">{subtotal} ر.س</span>
+                    <span className="text-white text-sm">{subtotal} ج.م</span>
                   </div>
                   <div className="flex justify-between text-gray-400 uppercase tracking-widest text-[10px]">
                     <span>رسوم الشحن</span>
                     <span className={`text-sm ${shippingCost === 0 ? 'text-green-400' : 'text-white'}`}>
-                      {shippingCost === 0 ? 'مجاني' : `${shippingCost} ر.س`}
+                      {shippingCost === 0 ? 'مجاني' : `${shippingCost} ج.م`}
                     </span>
                   </div>
                   <div className="flex justify-between text-gray-400 uppercase tracking-widest text-[10px]">
                     <span>الضريبة المضافة</span>
-                    <span className="text-white text-sm">{tax} ر.س</span>
+                    <span className="text-white text-sm">{tax} ج.م</span>
                   </div>
                   <div className="pt-6 border-t border-white/10 flex justify-between items-end mt-6">
                     <div>
                       <span className="block text-[10px] font-black text-amber-500 uppercase tracking-widest mb-1">الإجمالي الكلي</span>
-                      <span className="text-4xl font-black text-white leading-none">{total} <span className="text-lg font-medium text-gray-500">ر.س</span></span>
+                      <span className="text-4xl font-black text-white leading-none">{total} <span className="text-lg font-medium text-gray-500">ج.م</span></span>
                     </div>
                   </div>
                 </div>

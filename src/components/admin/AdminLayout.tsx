@@ -37,103 +37,130 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50" dir="rtl">
+        <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden font-sans" dir="rtl">
+            {/* Architectural Background Text */}
+            <div className="fixed inset-0 pointer-events-none opacity-[0.02] flex items-center justify-center overflow-hidden z-0">
+                <span className="text-[40vw] font-black tracking-tighter uppercase select-none leading-none">
+                    CONTROL
+                </span>
+            </div>
+
             {/* Mobile Sidebar Overlay */}
             {sidebarOpen && (
                 <div
-                    className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+                    className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 lg:hidden"
                     onClick={() => setSidebarOpen(false)}
                 />
             )}
 
             {/* Sidebar */}
             <aside
-                className={`fixed top-0 right-0 h-full w-64 bg-gray-900 text-white z-50 transform transition-transform duration-300 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'
+                className={`fixed top-0 right-0 h-full w-72 bg-black/40 backdrop-blur-2xl border-l border-white/5 z-50 transform transition-transform duration-500 ease-out lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'
                     }`}
             >
-                {/* Logo */}
-                <div className="h-16 flex items-center justify-between px-6 border-b border-gray-800">
-                    <h1 className="text-xl font-bold bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
-                        لوحة التحكم
-                    </h1>
+                {/* Logo Section */}
+                <div className="h-24 flex items-center justify-between px-8 border-b border-white/5">
+                    <div>
+                        <h1 className="text-xl font-black tracking-tighter uppercase text-amber-500 italic leading-none">
+                            ARVO <br />
+                            <span className="text-[8px] text-white/40 tracking-[0.5em] not-italic">COMMAND</span>
+                        </h1>
+                    </div>
                     <button
                         onClick={() => setSidebarOpen(false)}
-                        className="lg:hidden text-gray-400 hover:text-white"
+                        className="lg:hidden text-white/60 hover:text-white"
                     >
                         {React.createElement(FiX as any, { className: "w-6 h-6" })}
                     </button>
                 </div>
 
-                {/* Admin Info */}
-                <div className="px-6 py-4 border-b border-gray-800">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white font-bold">
-                            {admin.name.charAt(0)}
+                {/* Admin Profile Mini */}
+                <div className="px-8 py-8">
+                    <div className="flex items-center gap-4 group">
+                        <div className="relative w-12 h-12">
+                            <div className="absolute inset-0 bg-gradient-to-br from-amber-500 to-amber-700 rounded-2xl rotate-3 group-hover:rotate-6 transition-transform" />
+                            <div className="absolute inset-0 bg-black border border-white/10 rounded-2xl flex items-center justify-center text-white font-black">
+                                {admin.name.charAt(0)}
+                            </div>
                         </div>
-                        <div>
-                            <p className="font-medium text-sm">{admin.name}</p>
-                            <p className="text-xs text-gray-400">{admin.email}</p>
+                        <div className="overflow-hidden">
+                            <p className="font-black text-sm uppercase tracking-tight truncate">{admin.name}</p>
+                            <p className="text-[10px] text-amber-600/60 font-bold uppercase tracking-widest truncate">{admin.role}</p>
                         </div>
                     </div>
                 </div>
 
-                {/* Menu Items */}
-                <nav className="px-3 py-4 space-y-1">
+                {/* Navigation Menu */}
+                <nav className="px-4 space-y-2">
                     {menuItems.map((item) => {
                         const isActive = router.pathname === item.href
                         return (
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActive
-                                        ? 'bg-gradient-to-r from-primary-500 to-secondary-500 text-white shadow-lg'
-                                        : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                                className={`flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-300 group ${isActive
+                                    ? 'bg-white/5 text-white shadow-[0_0_40px_-10px_rgba(245,158,11,0.2)] border border-white/10'
+                                    : 'text-white/40 hover:text-white hover:bg-white/5'
                                     }`}
                             >
-                                {React.createElement(item.icon as any, { className: "w-5 h-5" })}
-                                <span className="font-medium">{item.label}</span>
+                                <div className={`${isActive ? 'text-amber-500' : 'group-hover:text-amber-500'} transition-colors`}>
+                                    {React.createElement(item.icon as any, { className: "w-5 h-5" })}
+                                </div>
+                                <span className="font-bold text-sm uppercase tracking-wider">{item.label}</span>
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="activeTab"
+                                        className="mr-auto w-1 h-1 bg-amber-500 rounded-full"
+                                    />
+                                )}
                             </Link>
                         )
                     })}
                 </nav>
 
-                {/* Logout Button */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-800">
+                {/* Logout */}
+                <div className="absolute bottom-8 left-0 right-0 px-4">
                     <button
                         onClick={logoutAdmin}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-all"
+                        className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-red-500/5 text-red-500 border border-red-500/10 hover:bg-red-500/10 transition-all font-bold text-sm uppercase tracking-widest"
                     >
-                        {React.createElement(FiLogOut as any, { className: "w-5 h-5" })}
-                        <span className="font-medium">تسجيل الخروج</span>
+                        {React.createElement(FiLogOut as any, { className: "w-4 h-4" })}
+                        <span>خروج</span>
                     </button>
                 </div>
             </aside>
 
-            {/* Main Content */}
-            <div className="lg:mr-64">
-                {/* Top Bar */}
-                <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 sticky top-0 z-30">
+            {/* Main Content Area */}
+            <div className="lg:mr-72 min-h-screen relative z-10 transition-all duration-500">
+                {/* Top Header */}
+                <header className="h-24 px-8 flex items-center justify-between sticky top-0 z-30 bg-black/50 backdrop-blur-xl border-b border-white/5">
                     <button
                         onClick={() => setSidebarOpen(true)}
-                        className="lg:hidden text-gray-600 hover:text-gray-900"
+                        className="lg:hidden p-3 bg-white/5 rounded-xl text-white/60"
                     >
                         {React.createElement(FiMenu as any, { className: "w-6 h-6" })}
                     </button>
 
-                    <div className="flex items-center gap-4">
+                    <div className="mr-auto flex items-center gap-6">
                         <Link
                             href="/"
                             target="_blank"
-                            className="text-sm text-gray-600 hover:text-primary-600 transition-colors"
+                            className="text-[10px] font-black text-amber-500 uppercase tracking-[0.3em] hover:text-white transition-colors flex items-center gap-2"
                         >
-                            عرض الموقع ←
+                            Live Store <span className="text-white">→</span>
                         </Link>
                     </div>
                 </header>
 
-                {/* Page Content */}
-                <main className="p-6">
-                    {children}
+                {/* Dynamic Page Content */}
+                <main className="p-8 lg:p-12 max-w-[1600px] mx-auto">
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        {children}
+                    </motion.div>
                 </main>
             </div>
         </div>

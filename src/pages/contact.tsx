@@ -33,7 +33,7 @@ export default function Contact() {
         {
             icon: FiPhone,
             title: 'مركز الاتصال',
-            details: ['+966 50 000 0000', '+966 11 000 0000'],
+            details: ['+20 100 000 0000', '+20 120 000 0000'],
             bg: 'bg-amber-50',
             text: 'text-amber-600'
         },
@@ -46,8 +46,8 @@ export default function Contact() {
         },
         {
             icon: FiMapPin,
-            title: 'بوتيك الرياض',
-            details: ['الرياض، حي العليا، شارع التحلية الرئيسي'],
+            title: 'مقر القاهرة',
+            details: ['القاهرة، مصر'],
             bg: 'bg-gray-100',
             text: 'text-gray-900'
         }
@@ -57,7 +57,7 @@ export default function Contact() {
         <Layout>
             <SEO
                 title="اتصل بنا"
-                description="نحن هنا للاستماع إليك. تواصل مع فريق خدمة العملاء في براند الملابس لأي استفسار أو طلب خاص."
+                description="نحن هنا للاستماع إليك. تواصل مع فريق خدمة العملاء في AROVA لأي استفسار أو طلب خاص."
             />
 
             {/* Hero Section */}

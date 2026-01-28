@@ -36,7 +36,7 @@ body {
   padding: 1rem;
 }
 
-/* زر براند */
+/* AROVA Button */
 .btn-brand {
   background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
   color: white;

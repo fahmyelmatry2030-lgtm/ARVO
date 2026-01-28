@@ -30,7 +30,7 @@ export default function Logo({ className = "w-10 h-10" }: { className?: string }
                 </svg>
             </div>
             <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 hidden sm:block">
-                براند
+                AROVA
             </span>
         </div>
     )

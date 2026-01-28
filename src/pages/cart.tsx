@@ -136,7 +136,7 @@ export default function Cart() {
                             </button>
                           </div>
                           <div className="text-2xl font-black text-gray-900 tracking-tighter">
-                            {item.price * item.quantity} <span className="text-xs text-gray-400">ريال</span>
+                            {item.price * item.quantity} <span className="text-xs text-gray-400">ج.م</span>
                           </div>
                         </div>
                       </div>
@@ -152,7 +152,7 @@ export default function Cart() {
                   </div>
                   <div>
                     <p className="font-black text-gray-900 uppercase text-xs tracking-widest mb-1">تغليف فاخر للهدايا</p>
-                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">+25 ريال إضافية</p>
+                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">+25 ج.م إضافية</p>
                   </div>
                 </div>
                 <Link href="/products" className="text-xs font-black uppercase tracking-[0.4em] text-gray-400 hover:text-gray-900 transition-colors flex items-center gap-4">
@@ -174,7 +174,7 @@ export default function Cart() {
                     <div className="space-y-8 mb-12">
                       <div className="flex justify-between items-center group">
                         <span className="text-[10px] font-black text-gray-500 uppercase tracking-[0.3em]">Subtotal</span>
-                        <span className="text-xl font-black">{subtotal} <span className="text-[10px] text-gray-500">ر.س</span></span>
+                        <span className="text-xl font-black">{subtotal} <span className="text-[10px] text-gray-500">ج.م</span></span>
                       </div>
 
                       <div className="flex justify-between items-center group">
@@ -183,26 +183,26 @@ export default function Cart() {
                           {shippingCost === 0 && <span className="text-[8px] text-green-400 font-black uppercase tracking-widest mt-1">Free Shipping Applied</span>}
                         </div>
                         <span className={`text-xl font-black ${shippingCost === 0 ? 'text-green-400' : ''}`}>
-                          {shippingCost === 0 ? '0' : shippingCost} <span className="text-[10px] text-gray-500">ر.س</span>
+                          {shippingCost === 0 ? '0' : shippingCost} <span className="text-[10px] text-gray-500">ج.م</span>
                         </span>
                       </div>
 
                       <div className="flex justify-between items-center group">
                         <span className="text-[10px] font-black text-gray-500 uppercase tracking-[0.3em]">Estimated Tax</span>
-                        <span className="text-xl font-black">{tax} <span className="text-[10px] text-gray-500">ر.س</span></span>
+                        <span className="text-xl font-black">{tax} <span className="text-[10px] text-gray-500">ج.م</span></span>
                       </div>
 
                       {isGift && (
                         <div className="flex justify-between items-center group text-amber-500">
                           <span className="text-[10px] font-black uppercase tracking-[0.3em]">Gift Packaging</span>
-                          <span className="text-xl font-black">+25 <span className="text-[10px]">ر.س</span></span>
+                          <span className="text-xl font-black">+25 <span className="text-[10px]">ج.م</span></span>
                         </div>
                       )}
 
                       {appliedCoupon && (
                         <div className="flex justify-between items-center group text-green-400">
                           <span className="text-[10px] font-black uppercase tracking-[0.3em]">Promo: {appliedCoupon.code}</span>
-                          <span className="text-xl font-black">-{discount} <span className="text-[10px]">ر.س</span></span>
+                          <span className="text-xl font-black">-{discount} <span className="text-[10px]">ج.م</span></span>
                         </div>
                       )}
                     </div>
@@ -212,7 +212,7 @@ export default function Cart() {
                         <div>
                           <span className="block text-[10px] font-black text-amber-500 uppercase tracking-[0.4em] mb-3">Grand Total</span>
                           <span className="text-6xl font-black tracking-tighter">{total}</span>
-                          <span className="text-lg font-bold text-gray-500 ml-2">ر.س</span>
+                          <span className="text-lg font-bold text-gray-500 ml-2">ج.م</span>
                         </div>
                       </div>
                     </div>

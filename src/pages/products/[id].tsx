@@ -111,7 +111,7 @@ export default function ProductPage() {
             </div>
 
             <h1 className="text-3xl md:text-5xl font-black text-gray-900 mb-4 tracking-tighter uppercase">{product.name}</h1>
-            <div className="text-4xl font-black text-amber-600 mb-8 tracking-tighter">{product.price} <span className="text-lg">ريال</span></div>
+            <div className="text-4xl font-black text-amber-600 mb-8 tracking-tighter">{product.price} <span className="text-lg">ج.م</span></div>
 
             <p className="text-gray-600 text-lg leading-relaxed mb-10 font-medium">
               {product.longDescription || product.description}
@@ -249,7 +249,7 @@ export default function ProductPage() {
                           {React.createElement(FiTruck as any, { className: "text-amber-600 text-2xl flex-shrink-0" })}
                           <div>
                             <p className="font-black text-gray-900 uppercase text-xs tracking-widest mb-1">Global Delivery</p>
-                            <p className="text-xs text-gray-500 font-medium">Free express shipping on all orders above 500 SAR. Delivered in bespoke premium packaging.</p>
+                            <p className="text-xs text-gray-500 font-medium">Free express shipping on all orders above 500 EGP. Delivered in bespoke premium packaging.</p>
                           </div>
                         </div>
                         <div className="flex items-start gap-6 p-6 bg-gray-50 rounded-3xl">

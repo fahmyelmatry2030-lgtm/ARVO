@@ -17,44 +17,7 @@ interface Order {
 
 export default function AdminOrders() {
     const { requireAdmin, loading, admin } = useAdmin()
-    const [orders, setOrders] = useState<Order[]>([
-        {
-            id: '1001',
-            customer: 'أحمد محمد',
-            email: 'ahmad@example.com',
-            total: 450,
-            status: 'pending',
-            date: '2024-01-15',
-            items: 3
-        },
-        {
-            id: '1002',
-            customer: 'فاطمة علي',
-            email: 'fatima@example.com',
-            total: 680,
-            status: 'delivered',
-            date: '2024-01-14',
-            items: 2
-        },
-        {
-            id: '1003',
-            customer: 'محمد سعيد',
-            email: 'mohammed@example.com',
-            total: 320,
-            status: 'processing',
-            date: '2024-01-14',
-            items: 1
-        },
-        {
-            id: '1004',
-            customer: 'سارة أحمد',
-            email: 'sara@example.com',
-            total: 890,
-            status: 'shipped',
-            date: '2024-01-13',
-            items: 4
-        },
-    ])
+    const [orders, setOrders] = useState<Order[]>([])
 
     const [filterStatus, setFilterStatus] = useState<string>('all')
 
@@ -64,8 +27,8 @@ export default function AdminOrders() {
 
     if (loading || !admin) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="w-8 h-8 border-2 border-primary-600 border-t-transparent rounded-full animate-spin" />
+            <div className="min-h-screen flex items-center justify-center bg-black">
+                <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
             </div>
         )
     }
@@ -77,15 +40,15 @@ export default function AdminOrders() {
     const getStatusInfo = (status: string) => {
         switch (status) {
             case 'pending':
-                return { label: 'قيد الانتظار', color: 'bg-yellow-100 text-yellow-700', icon: FiClock as any }
+                return { label: 'PENDING', color: 'bg-yellow-500/10 text-yellow-500', icon: FiClock as any }
             case 'processing':
-                return { label: 'قيد المعالجة', color: 'bg-blue-100 text-blue-700', icon: FiPackage as any }
+                return { label: 'PROCESSING', color: 'bg-blue-500/10 text-blue-500', icon: FiPackage as any }
             case 'shipped':
-                return { label: 'تم الشحن', color: 'bg-purple-100 text-purple-700', icon: FiTruck as any }
+                return { label: 'SHIPPED', color: 'bg-purple-500/10 text-purple-500', icon: FiTruck as any }
             case 'delivered':
-                return { label: 'تم التسليم', color: 'bg-green-100 text-green-700', icon: FiCheckCircle as any }
+                return { label: 'DELIVERED', color: 'bg-green-500/10 text-green-500', icon: FiCheckCircle as any }
             default:
-                return { label: status, color: 'bg-gray-100 text-gray-700', icon: FiPackage as any }
+                return { label: status, color: 'bg-white/10 text-white', icon: FiPackage as any }
         }
     }
 
@@ -96,124 +59,77 @@ export default function AdminOrders() {
     }
 
     const stats = [
-        { label: 'إجمالي الطلبات', value: orders.length, color: 'from-blue-500 to-blue-600' },
-        { label: 'قيد الانتظار', value: orders.filter(o => o.status === 'pending').length, color: 'from-yellow-500 to-yellow-600' },
-        { label: 'قيد المعالجة', value: orders.filter(o => o.status === 'processing').length, color: 'from-purple-500 to-purple-600' },
-        { label: 'تم التسليم', value: orders.filter(o => o.status === 'delivered').length, color: 'from-green-500 to-green-600' },
+        { label: 'ORDERS', value: orders.length, color: 'from-amber-500/20 to-transparent' },
+        { label: 'PENDING', value: orders.filter(o => o.status === 'pending').length, color: 'from-yellow-500/20 to-transparent' },
+        { label: 'SHIPPED', value: orders.filter(o => o.status === 'shipped').length, color: 'from-purple-500/20 to-transparent' },
+        { label: 'COMPLETED', value: orders.filter(o => o.status === 'delivered').length, color: 'from-green-500/20 to-transparent' },
     ]
 
     return (
         <AdminLayout>
             <Head>
-                <title>إدارة الطلبات | الإدارة</title>
+                <title>إدارة الطلبات | ARVO COMMAND</title>
             </Head>
 
-            <div className="space-y-6">
+            <div className="space-y-12">
                 {/* Header */}
-                <div>
-                    <h1 className="text-3xl font-bold text-gray-900">إدارة الطلبات</h1>
-                    <p className="text-gray-600 mt-1">
-                        متابعة وإدارة جميع الطلبات
-                    </p>
+                <div className="border-b border-white/5 pb-12">
+                    <span className="text-[10px] font-black text-amber-500 tracking-[0.6em] uppercase mb-4 block">LOGISTICS</span>
+                    <h1 className="text-4xl md:text-6xl font-black text-white leading-none tracking-tighter uppercase italic">إدارة الطلبات</h1>
                 </div>
 
-                {/* Stats */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* Perspective Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-1">
                     {stats.map((stat, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: index * 0.1 }}
-                            className={`bg-gradient-to-br ${stat.color} rounded-xl p-6 text-white shadow-lg`}
+                            className="relative group bg-white/[0.03] backdrop-blur-md border border-white/5 p-8 rounded-[2rem] hover:border-amber-500/30 transition-all duration-500 overflow-hidden"
                         >
-                            <p className="text-white/80 text-sm mb-1">{stat.label}</p>
-                            <p className="text-3xl font-bold">{stat.value}</p>
+                            <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${stat.color} blur-2xl opacity-40`} />
+                            <p className="relative z-10 text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mb-2">{stat.label}</p>
+                            <h3 className="relative z-10 text-4xl font-black text-white tracking-tighter italic">{stat.value}</h3>
                         </motion.div>
                     ))}
                 </div>
 
                 {/* Filters */}
-                <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
-                    <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-3">
+                    {['all', 'pending', 'processing', 'shipped', 'delivered'].map((status) => (
                         <button
-                            onClick={() => setFilterStatus('all')}
-                            className={`px-4 py-2 rounded-lg font-medium transition-all ${filterStatus === 'all'
-                                ? 'bg-primary-500 text-white'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            key={status}
+                            onClick={() => setFilterStatus(status)}
+                            className={`px-8 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${filterStatus === status
+                                ? 'bg-white text-black scale-105 border-transparent shadow-[0_0_30px_-10px_rgba(255,255,255,0.3)]'
+                                : 'bg-white/5 text-white/40 border border-white/5 hover:bg-white/10 hover:text-white'
                                 }`}
                         >
-                            الكل ({orders.length})
+                            {status === 'all' ? `الكل (${orders.length})` : status}
                         </button>
-                        <button
-                            onClick={() => setFilterStatus('pending')}
-                            className={`px-4 py-2 rounded-lg font-medium transition-all ${filterStatus === 'pending'
-                                ? 'bg-yellow-500 text-white'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                }`}
-                        >
-                            قيد الانتظار ({orders.filter(o => o.status === 'pending').length})
-                        </button>
-                        <button
-                            onClick={() => setFilterStatus('processing')}
-                            className={`px-4 py-2 rounded-lg font-medium transition-all ${filterStatus === 'processing'
-                                ? 'bg-blue-500 text-white'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                }`}
-                        >
-                            قيد المعالجة ({orders.filter(o => o.status === 'processing').length})
-                        </button>
-                        <button
-                            onClick={() => setFilterStatus('shipped')}
-                            className={`px-4 py-2 rounded-lg font-medium transition-all ${filterStatus === 'shipped'
-                                ? 'bg-purple-500 text-white'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                }`}
-                        >
-                            تم الشحن ({orders.filter(o => o.status === 'shipped').length})
-                        </button>
-                        <button
-                            onClick={() => setFilterStatus('delivered')}
-                            className={`px-4 py-2 rounded-lg font-medium transition-all ${filterStatus === 'delivered'
-                                ? 'bg-green-500 text-white'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                }`}
-                        >
-                            تم التسليم ({orders.filter(o => o.status === 'delivered').length})
-                        </button>
-                    </div>
+                    ))}
                 </div>
 
-                {/* Orders Table */}
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                {/* Orders Content - Editorial Table */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-white/[0.02] border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl backdrop-blur-sm"
+                >
                     <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <thead className="bg-gray-50">
+                        <table className="w-full text-right">
+                            <thead className="bg-white/[0.02]">
                                 <tr>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
-                                        رقم الطلب
-                                    </th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
-                                        العميل
-                                    </th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
-                                        المنتجات
-                                    </th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
-                                        المبلغ
-                                    </th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
-                                        التاريخ
-                                    </th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
-                                        الحالة
-                                    </th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
-                                        إجراءات
-                                    </th>
+                                    <th className="px-10 py-6 text-xs font-black text-white/40 uppercase tracking-widest leading-none">ID</th>
+                                    <th className="px-10 py-6 text-xs font-black text-white/40 uppercase tracking-widest leading-none">CUSTOMER</th>
+                                    <th className="px-10 py-6 text-xs font-black text-white/40 uppercase tracking-widest leading-none">VALUE</th>
+                                    <th className="px-10 py-6 text-xs font-black text-white/40 uppercase tracking-widest leading-none">STATUS</th>
+                                    <th className="px-10 py-6 text-xs font-black text-white/40 uppercase tracking-widest leading-none">DATE</th>
+                                    <th className="px-10 py-6 text-xs font-black text-white/40 uppercase tracking-widest leading-none">ACTIONS</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-100">
+                            <tbody className="divide-y divide-white/5">
                                 {filteredOrders.map((order) => {
                                     const statusInfo = getStatusInfo(order.status)
                                     return (
@@ -221,46 +137,40 @@ export default function AdminOrders() {
                                             key={order.id}
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
-                                            className="hover:bg-gray-50 transition-colors"
+                                            className="hover:bg-white/[0.03] transition-colors group"
                                         >
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="font-mono text-sm font-medium text-gray-900">
-                                                    #{order.id}
+                                            <td className="px-10 py-8">
+                                                <span className="font-mono text-sm text-amber-500 font-bold block mb-1">#{order.id}</span>
+                                                <span className="text-[10px] text-white/20 font-black uppercase tracking-tighter">{order.items} ITEMS</span>
+                                            </td>
+                                            <td className="px-10 py-8">
+                                                <p className="text-sm font-black text-white uppercase italic group-hover:text-amber-500 transition-colors">{order.customer}</p>
+                                                <p className="text-[10px] text-white/20 font-bold lowercase tracking-wider">{order.email}</p>
+                                            </td>
+                                            <td className="px-10 py-8 whitespace-nowrap">
+                                                <span className="text-xl font-black text-white tracking-tighter italic">
+                                                    {order.total} <span className="text-[10px] not-italic text-white/40">ريال</span>
                                                 </span>
                                             </td>
-                                            <td className="px-6 py-4">
-                                                <div>
-                                                    <p className="text-sm font-medium text-gray-900">{order.customer}</p>
-                                                    <p className="text-xs text-gray-500">{order.email}</p>
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="text-sm text-gray-900">{order.items} منتج</span>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="text-sm font-medium text-gray-900">
-                                                    {order.total} ريال
-                                                </span>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {order.date}
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${statusInfo.color}`}>
-                                                    {React.createElement(statusInfo.icon as any, { className: "w-3.5 h-3.5" })}
+                                            <td className="px-10 py-8">
+                                                <span className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-sm ${statusInfo.color}`}>
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
                                                     {statusInfo.label}
                                                 </span>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-10 py-8 text-[10px] text-white/20 font-black uppercase tracking-widest">
+                                                {order.date}
+                                            </td>
+                                            <td className="px-10 py-8">
                                                 <select
                                                     value={order.status}
                                                     onChange={(e) => updateOrderStatus(order.id, e.target.value as Order['status'])}
-                                                    className="text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                                    className="bg-black/40 border border-white/5 text-[10px] font-black uppercase tracking-widest rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500/50 transition-all text-white cursor-pointer hover:bg-black/60"
                                                 >
-                                                    <option value="pending">قيد الانتظار</option>
-                                                    <option value="processing">قيد المعالجة</option>
-                                                    <option value="shipped">تم الشحن</option>
-                                                    <option value="delivered">تم التسليم</option>
+                                                    <option value="pending">Pending</option>
+                                                    <option value="processing">Processing</option>
+                                                    <option value="shipped">Shipped</option>
+                                                    <option value="delivered">Delivered</option>
                                                 </select>
                                             </td>
                                         </motion.tr>
@@ -269,12 +179,12 @@ export default function AdminOrders() {
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Empty State */}
                 {filteredOrders.length === 0 && (
-                    <div className="text-center py-20 bg-white rounded-xl shadow-sm">
-                        <p className="text-gray-500 text-lg">لا توجد طلبات</p>
+                    <div className="text-center py-40 bg-white/[0.02] border border-white/5 rounded-[3rem]">
+                        <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.8em]">No orders in queue</span>
                     </div>
                 )}
             </div>

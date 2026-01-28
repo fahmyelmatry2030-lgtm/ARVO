@@ -55,7 +55,7 @@ export default function Hero() {
               variants={textVariants}
               className="text-amber-600 text-[10px] md:text-sm font-black tracking-[0.4em] md:tracking-[0.8em] uppercase"
             >
-              التشكيلة الحصرية 2024
+              التشكيلة الحصرية 2025
             </motion.div>
           </div>
 
@@ -102,7 +102,7 @@ export default function Hero() {
             </Link>
 
             <Link
-              href="/brand"
+              href="/about"
               className="text-white text-xs font-black uppercase tracking-[0.4em] border-b border-white/20 pb-2 hover:border-amber-600 transition-colors"
             >
               قصتنا

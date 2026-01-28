@@ -27,7 +27,7 @@ export default function Profile() {
 
   return (
     <Layout>
-      <SEO title="حسابي" description="إدارة حسابك الشخصي وطلباتك في براند الملابس." />
+      <SEO title="حسابي" description="إدارة حسابك الشخصي وطلباتك في AROVA." />
 
       <div className="bg-gray-50 min-h-screen py-20">
         <div className="max-w-6xl mx-auto px-4">
