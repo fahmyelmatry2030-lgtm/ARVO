@@ -102,7 +102,7 @@ export default function Hero() {
             </Link>
 
             <Link
-              href="/about"
+              href="#story"
               className="text-white text-xs font-black uppercase tracking-[0.4em] border-b border-white/20 pb-2 hover:border-amber-600 transition-colors"
             >
               قصتنا

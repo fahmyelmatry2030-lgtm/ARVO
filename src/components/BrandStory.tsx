@@ -3,7 +3,7 @@ import SafeImage from './SafeImage'
 
 export default function BrandStory() {
     return (
-        <section className="py-24 md:py-40 bg-white overflow-hidden">
+        <section id="story" className="py-24 md:py-40 bg-white overflow-hidden">
             <div className="container mx-auto px-6">
                 <div className="flex flex-col lg:flex-row items-center gap-16 md:gap-24">
 
