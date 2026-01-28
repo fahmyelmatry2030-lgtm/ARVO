@@ -12,7 +12,8 @@ import {
     FiMenu,
     FiX,
     FiSun,
-    FiMoon
+    FiMoon,
+    FiShield
 } from 'react-icons/fi'
 import { useAdmin } from '../../hooks/useAdmin'
 import { useState, useEffect, createContext, useContext } from 'react'
@@ -30,7 +31,7 @@ const menuItems = [
     { icon: FiPackage, label: 'المنتجات', href: '/admin/products' },
     { icon: FiShoppingBag, label: 'الطلبات', href: '/admin/orders' },
     { icon: FiTag, label: 'العروض', href: '/admin/offers' },
-    { icon: FiBarChart2, label: 'الإحصائيات', href: '/admin/analytics' },
+    { icon: FiShield, label: 'سجلات الأمان', href: '/admin/analytics' },
 ]
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
